@@ -7,11 +7,9 @@
     <meta name="description" content="IP address info">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="https://www.debian.org/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style type="text/css">
         html { overflow-y: scroll; }
         body { color: #4c4c4c; background: #e3e4e6; }
@@ -34,10 +32,11 @@
         .tall { height: 500px; transition: all 0.6s cubic-bezier(0.720, 1.575, 0.560, 0.825); }
         #blanks { display: none; }
     </style>
+
 </head>
 
 <body>
-    <!--[if lt IE 8]>
+    <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
         href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -70,7 +69,8 @@
         <!--span title="http://whois.domaintools.com/%s" id="domaintools"></span-->
     </div>
 
-    <script type="text/javascript">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
         (function ($) {
 
             // Open popups
@@ -183,5 +183,6 @@
 
         }(jQuery))
     </script>
+
 </body>
 </html>
