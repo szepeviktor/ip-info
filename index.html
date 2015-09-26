@@ -25,6 +25,8 @@
         .arrow-up { border-width: 0 10px 18px 10px; border-color: transparent transparent #4c4c4c; }
         .arrow-down:active, .arrow-down.active { margin: 10px 10px 0 10px; }
         .arrow-up:active, .arrow-up.active { margin: 0 10px 10px 10px; }
+        .ip { float: left; margin: 7px 10px;
+            font-size: 15px; font-family: "Lucida Console", Monaco, monospace; }
 
         .frame { display: block; border: none; border-bottom: 5px solid #4c4c4c;
             width: 100%; height: 100px; transition: all 0.6s cubic-bezier(0.720, 1.575, 0.560, 0.825); }
@@ -40,17 +42,21 @@
     <![endif]-->
 
     <div id="control">
+        <span class="ip"></span>
         <span class="arrow arrow-down"></span>
         <span class="arrow arrow-up"></span>
     </div>
 
     <div id="frames">
         <iframe title="https://cleantalk.org/blacklists?record=%s" id="cleantalk" class="frame"></iframe>
+        <iframe title="https://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
         <iframe title="http://www.abuseipdb.com/report-history/%s" id="abuseipdb" class="frame"></iframe>
+
+        <!-- RBL-s -->
         <iframe title="http://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
-        <iframe title="http://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
+        <iframe title="https://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
             id="mxtoolbox" class="frame"></iframe>
-        <iframe title="http://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
+
         <iframe title="https://www.openbl.org/lists/base.txt" id="openbl" class="frame"></iframe>
     </div>
 
@@ -88,9 +94,16 @@
                     query = window.location.search;
                 ip = query.split('&')[0].substring(1);
                 if (!ip) {
-                    ip = prompt('Please enter IP address:');
+                    //ip = prompt('Please enter IP address:');
+                    ip = $.ajax({
+                        url: 'https://api.ipify.org',
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html'
+                    }).responseText;
                     ip = ip.trim();
                 }
+                $('#control .ip').html(ip);
 
                 // Template substitution
                 $('#frames .frame[title]').each(function (i, frame) {
