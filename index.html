@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>IP address info</title>
+    <meta name="description" content="IP address info">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://www.debian.org/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        html { overflow-y: scroll; }
+        body { color: #4c4c4c; background: #e3e4e6; }
+
+        #control { height: 30px; }
+        #openbutton { margin: 4px; border-radius: 20%; }
+        .arrow { display: block; float: right; margin: 5px 10px; width: 0; height: 0;
+            border-style: solid; cursor: pointer; transition: all 0.1s; }
+        .arrow:hover, .arrow:focus { background-color: yellow; }
+        .arrow-down { border-width: 18px 10px 0 10px;
+            border-color: #4c4c4c transparent transparent transparent; }
+        .arrow-up { border-width: 0 10px 18px 10px; border-color: transparent transparent #4c4c4c; }
+        .arrow-down:active, .arrow-down.active { margin: 10px 10px 0 10px; }
+        .arrow-up:active, .arrow-up.active { margin: 0 10px 10px 10px; }
+
+        .frame { display: block; border: none; border-bottom: 5px solid #4c4c4c;
+            width: 100%; height: 100px; transition: all 0.6s cubic-bezier(0.720, 1.575, 0.560, 0.825); }
+        .tall { height: 500px; transition: all 0.6s cubic-bezier(0.720, 1.575, 0.560, 0.825); }
+        #blanks { display: none; }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
+        href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="control">
+        <span class="arrow arrow-down"></span>
+        <span class="arrow arrow-up"></span>
+    </div>
+
+    <div id="frames">
+        <iframe title="https://cleantalk.org/blacklists?record=%s" id="cleantalk" class="frame"></iframe>
+        <iframe title="http://www.abuseipdb.com/report-history/%s" id="abuseipdb" class="frame"></iframe>
+        <iframe title="http://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
+        <iframe title="http://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
+            id="mxtoolbox" class="frame"></iframe>
+        <iframe title="http://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
+        <iframe title="https://www.openbl.org/lists/base.txt" id="openbl" class="frame"></iframe>
+    </div>
+
+    <div id="blanks">
+        <span title="https://www.blocklist.de/en/view.html?ip=%s" id="blocklist.de"></span>
+        <span title="http://www.stopforumspam.com/search?q=%s" id="stopforumspam"></span>
+        <!--span title="http://whois.domaintools.com/%s" id="domaintools"></span-->
+    </div>
+
+    <script type="text/javascript">
+        (function ($) {
+
+            // Open popups
+            function popups(ip) {
+                var alertDone = false;
+                $('#blanks span[title]').each(function (i, blank) {
+                    var template = $(blank).attr('title'),
+                        popUp = window.open(template.replace('%s', ip), '_blank');
+                    if (popUp === null || typeof(popUp) === 'undefined') {
+                        if (!alertDone) {
+                            $('#control').append('<button id="openbutton">Open</button>')
+                            alert('Please disable your pop-up blocker and click the "Open" button.');
+                            alertDone = true;
+                        }
+                    } else {
+                        popUp.focus();
+                    }
+                });
+                return alertDone;
+            }
+
+            // On document ready
+            $(function () {
+                var ip,
+                    query = window.location.search;
+                ip = query.split('&')[0].substring(1);
+                if (!ip) {
+                    ip = prompt('Please enter IP address:');
+                    ip = ip.trim();
+                }
+
+                // Template substitution
+                $('#frames .frame[title]').each(function (i, frame) {
+                    var template = $(frame).attr('title');
+                    $(frame).attr('src', template.replace('%s', ip));
+                });
+                // X-FRAME-OPTIONS: DENY
+                if (popups(ip)) {
+                    console.log('not succeeded');
+                    $('#openbutton').click(function () {
+                        popups(ip);
+                    })
+                }
+            });
+
+            // Go to another frame
+            function page(event) {
+                var prev, next, classes;
+                classes = $(event.target).attr('class');
+                if (classes) {
+                    classes = classes.split(/\s+/)
+                } else {
+                    if (event.key === 'ArrowDown') {
+                        classes='arrow-down';
+                    }
+                    if (event.key === 'ArrowUp') {
+                        classes='arrow-up';
+                    }
+                    $('.' + classes).addClass('active');
+                    setTimeout(function () { $('.' + classes).removeClass('active'); }, 100);
+                }
+                prev = $('.tall:eq(0)');
+
+                if (prev.length !== 0) {
+                    prev.removeClass('tall');
+                    if (classes.indexOf('arrow-down') !== -1) {
+                        prev.next('.frame').addClass('tall');
+                    } else if (classes.indexOf('arrow-up') !== -1) {
+                        prev.prev('.frame').addClass('tall');
+                    }
+                } else {
+                    if (classes.indexOf('arrow-down') !== -1) {
+                        $('.frame:eq(0)').addClass('tall');
+                    } else if (classes.indexOf('arrow-up') !== -1) {
+                        $('.frame:last').addClass('tall');
+                    }
+                }
+            };
+
+            // Arrow events
+            $('#control .arrow').click(function (event) {
+                page(event);
+            });
+            // Up and Down key
+            $(document).keypress(function (event) {
+                if ( event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    page(event);
+                }
+            });
+            // Open frame on mouse hover
+            $('#frames .frame').hover(function () {
+                $('#frames .frame').removeClass('tall');
+                $(this).addClass('tall');
+            });
+
+        }(jQuery))
+    </script>
+</body>
+</html>
