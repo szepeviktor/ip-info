@@ -1,5 +1,9 @@
 # Examine a host by IP address
 
+You may add an IPv4 address in the URL query: `http://szepeviktor.github.io/ip-info/?1.2.3.4`
+
+## IP address info providers
+
 ### Cleantalk
 
 `https://cleantalk.org/blacklists/%s`
