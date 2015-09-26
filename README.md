@@ -2,6 +2,8 @@
 
 You may add an IPv4 address in the URL query: `http://szepeviktor.github.io/ip-info/?1.2.3.4`
 
+Have ip-info prompt you for an IP address: `http://szepeviktor.github.io/ip-info/?prompt`
+
 ## Adblock Plus rules
 
 See: https://github.com/szepeviktor/lean-filter/blob/master/build/0100-ip_info.txt

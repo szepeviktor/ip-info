@@ -49,16 +49,19 @@
     </div>
 
     <div id="frames">
+        <!-- Abuse -->
         <iframe title="https://cleantalk.org/blacklists?record=%s" id="cleantalk" class="frame"></iframe>
         <iframe title="https://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
         <iframe title="http://www.abuseipdb.com/report-history/%s" id="abuseipdb" class="frame"></iframe>
 
-        <!-- RBL-s -->
+        <!-- RBL -->
         <iframe title="http://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
         <iframe title="https://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
             id="mxtoolbox" class="frame"></iframe>
 
+        <!-- Simple list -->
         <iframe title="https://www.openbl.org/lists/base.txt" id="openbl" class="frame"></iframe>
+        <iframe title="http://cinsscore.com/list/ci-badguys.txt" id="cinsscore" class="frame"></iframe>
     </div>
 
     <div id="blanks">
@@ -92,18 +95,26 @@
 
             // On document ready
             $(function () {
-                var query = window.location.search.substring(1),
+                var ip,
+                    query = window.location.search.substring(1);
+                if (query.split('&').indexOf('prompt') !== -1) {
+                    // Manual input
+                    ip = prompt('Please enter IP address:');
+                } else {
+                    // Try the first parameter
                     ip = query.split('&')[0];
+                }
+                // If all fails get visitor's IP from ipify
                 if (!ip) {
-                    //ip = prompt('Please enter IP address:');
                     ip = $.ajax({
                         url: 'https://api.ipify.org',
                         type: 'GET',
                         async: false,
                         dataType: 'html'
                     }).responseText;
-                    ip = ip.trim();
                 }
+                ip = ip.trim();
+                // Display IP
                 $('#control .ip').html(ip);
 
                 // Template substitution
