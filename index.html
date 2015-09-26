@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- https://github.com/szepeviktor/ip-info -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -82,6 +83,7 @@
                             alertDone = true;
                         }
                     } else {
+                        $('#openbutton').remove();
                         popUp.focus();
                     }
                 });
@@ -90,9 +92,8 @@
 
             // On document ready
             $(function () {
-                var ip,
-                    query = window.location.search;
-                ip = query.split('&')[0].substring(1);
+                var query = window.location.search.substring(1),
+                    ip = query.split('&')[0];
                 if (!ip) {
                     //ip = prompt('Please enter IP address:');
                     ip = $.ajax({
@@ -110,9 +111,8 @@
                     var template = $(frame).attr('title');
                     $(frame).attr('src', template.replace('%s', ip));
                 });
-                // X-FRAME-OPTIONS: DENY
+                // Sites with X-FRAME-OPTIONS: DENY header
                 if (popups(ip)) {
-                    console.log('not succeeded');
                     $('#openbutton').click(function () {
                         popups(ip);
                     })
