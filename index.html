@@ -58,9 +58,9 @@
         <iframe title="https://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
             id="mxtoolbox" class="frame"></iframe>
 
-        <!-- Simple list -->
-        <iframe title="https://www.openbl.org/lists/base.txt" id="openbl" class="frame"></iframe>
-        <iframe title="http://cinsscore.com/list/ci-badguys.txt" id="cinsscore" class="frame"></iframe>
+        <!-- List -->
+        <pre title="https://www.openbl.org/lists/base.txt" id="openbl" class="frame"></pre>
+        <pre title="http://cinsscore.com/list/ci-badguys.txt" id="cinsscore" class="frame"></pre>
     </div>
 
     <div id="blanks">
@@ -72,6 +72,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
         (function ($) {
+
+            function getIndicesOf(searchStr, str) {
+                var startIndex = 0,
+                    searchStrLen = searchStr.length,
+                    index, indices = [];
+                while ((index = str.indexOf(searchStr, startIndex)) !== -1) {
+                    indices.push(index);
+                    startIndex = index + searchStrLen;
+                }
+                return indices;
+            }
 
             // Open popups
             function popups(ip) {
@@ -91,6 +102,37 @@
                     }
                 });
                 return alertDone;
+            }
+
+            // Highligh all IP addresses in the same /24 network
+            function selectIP(list, ip) {
+                var sel = window.getSelection(),
+                    // First three octets
+                    cnet = ip.split('.').slice(0, 3).join('.') + '.',
+                    ip_line, list_text, ip_pos_a, all_lines, lines_before, i;
+
+                // Find C Class network
+                ip_pos_a = getIndicesOf(cnet, list.textContent);
+                if (ip_pos_a.length === 0) return -1;
+
+                // Scroll to the first match
+                all_lines = list.textContent.split('\n').length;
+                lines_before = list.textContent.substr(0, ip_pos_a[0]).split('\n').length;
+                list.scrollTop = list.scrollHeight * (lines_before - 1) / all_lines;
+
+                // Select all matches
+                list_text = list.childNodes[0];
+                for (i = 0; i < ip_pos_a.length; i++) {
+                    // Maximum length of an IPv4 address + newline is 16 bytes
+                    ip_line = list.textContent.substr(ip_pos_a[i], 16).match(/.*\n/)[0];
+
+                    // Set up range and add it to selection
+                    range = document.createRange();
+                    range.setStart(list_text, ip_pos_a[i]);
+                    range.setEnd(list_text, ip_pos_a[i] + ip_line.length);
+                    sel.addRange(range);
+                }
+                return ip_pos_a.length;
             }
 
             // On document ready
@@ -118,11 +160,30 @@
                 $('#control .ip').html(ip);
 
                 // Template substitution
-                $('#frames .frame[title]').each(function (i, frame) {
+                $('#frames iframe.frame[title]').each(function (i, frame) {
                     var template = $(frame).attr('title');
                     $(frame).attr('src', template.replace('%s', ip));
                 });
-                // Sites with X-FRAME-OPTIONS: DENY header
+                // Search lists
+                $('#frames pre.frame[title]').each(function (i, list) {
+                    var url = $(list).attr('title'),
+                        allowOrigin = 'http://alloworigin.com/get?url=',
+                        content;
+                    /* CORS blocked and sync deprecated
+                    content = $.ajax({
+                        url: url,
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html'
+                    }).responseText;
+                    $(list).text(content);
+                    */
+                    $.getJSON(allowOrigin + encodeURIComponent(url), function (data) {
+                        $(list).html(data.contents);
+                        selectIP(list, ip);
+                    });
+                });
+                // Sites with X-FRAME-OPTIONS header
                 if (popups(ip)) {
                     $('#openbutton').click(function () {
                         popups(ip);
@@ -134,6 +195,7 @@
             function page(event) {
                 var prev, next, classes;
                 classes = $(event.target).attr('class');
+
                 if (classes) {
                     classes = classes.split(/\s+/)
                 } else {
