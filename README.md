@@ -6,7 +6,7 @@ Have ip-info prompt you for an IP address: `http://szepeviktor.github.io/ip-info
 
 ## Adblock Plus rules
 
-See: https://github.com/szepeviktor/lean-filter/blob/master/build/0100-ip_info.txt
+See: https://github.com/szepeviktor/lean-filter/blob/master/build/0200-ip_info.txt
 
 ## IP address info providers
 
@@ -17,7 +17,7 @@ See: https://github.com/szepeviktor/lean-filter/blob/master/build/0100-ip_info.t
 Adblock
 ```js
 cleantalk.org##div.why__container
-cleantalk.org##div.blacklist-content:nth-of-type(3)
+cleantalk.org##div.blacklist-content:nth-of-type(4)
 ```
 
 ### Project Honeypot
@@ -74,3 +74,7 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 - ipify by Randall Degges
 - alloworigin.com by Terry
 - and of course the [above listed services](https://github.com/szepeviktor/ip-info/blob/gh-pages/index.html#L50)
+
+## HTML5 validity
+
+https://validator.w3.org/nu/?doc=http%3A%2F%2Fszepeviktor.github.io%2Fip-info%2F
