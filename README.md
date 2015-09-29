@@ -40,13 +40,19 @@ Adblock
 abuseipdb.com##DIV.banner
 ```
 
-### blocklist.de
+### blocklist.de (opened in new window)
 
 Info: `https://www.blocklist.de/en/search.html?action=search&send=start+search&ip=%s`
 
 History: `https://www.blocklist.de/en/view.html?ip=%s`
 
-### HE - RBL check
+### Stop Forum Spam (opened in new window)
+
+Info: `http://www.stopforumspam.com/search?q=%s`
+
+List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
+
+### HE - RBL check, whois, Origin AS, PTR record etc.
 
 `http://bgp.he.net/ip/%s#_rbl`
 
@@ -58,9 +64,13 @@ History: `https://www.blocklist.de/en/view.html?ip=%s`
 
 `https://www.openbl.org/lists/base.txt`
 
-### Stop Forum Spam
+### CINS Score - IP list only
 
-Info: `http://www.stopforumspam.com/search?q=%s`
+`http://cinsscore.com/list/ci-badguys.txt`
 
-List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
+## Used services
 
+- cdnjs by CloudFlare
+- ipify by Randall Degges
+- alloworigin.com by Terry
+- and of course the [above listed services](https://github.com/szepeviktor/ip-info/blob/gh-pages/index.html#L50)
