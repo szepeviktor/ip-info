@@ -1,4 +1,8 @@
-# Examine a host by IP address
+# IP info
+
+[![Build Status](https://travis-ci.org/szepeviktor/ip-info.svg?branch=gh-pages)](https://travis-ci.org/szepeviktor/ip-info)
+
+Examine a host by IP address.
 
 You may add an IPv4 address in the URL query: `http://szepeviktor.github.io/ip-info/?1.2.3.4`
 
