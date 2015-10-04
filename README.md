@@ -18,31 +18,15 @@ See: https://github.com/szepeviktor/lean-filter/blob/master/build/0200-ip_info.t
 
 `https://cleantalk.org/blacklists/%s`
 
-Adblock
-```js
-cleantalk.org##div.why__container
-cleantalk.org##div.blacklist-content:nth-of-type(4)
-```
-
 ### Project Honeypot
 
 `http://www.projecthoneypot.org/ip_%s`
-
-Adblock
-```
-projecthoneypot.org###\5f cd_iframe
-```
 
 ### AbuseIPDB
 
 Info: `http://www.abuseipdb.com/check/%s`
 
 History: `http://www.abuseipdb.com/report-history/%s`
-
-Adblock
-```js
-abuseipdb.com##DIV.banner
-```
 
 ### blocklist.de (opened in new window)
 
@@ -77,7 +61,7 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 - cdnjs by CloudFlare
 - ipify by Randall Degges
 - alloworigin.com by Terry
-- and of course the [above listed services](https://github.com/szepeviktor/ip-info/blob/gh-pages/index.html#L50)
+- and of course the [above listed services](https://github.com/szepeviktor/ip-info/blob/gh-pages/index.html#L54)
 
 ## HTML5 validity
 
