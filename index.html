@@ -54,7 +54,7 @@
     <div id="frames">
         <!-- Abuse -->
         <iframe title="https://cleantalk.org/blacklists?record=%s" id="cleantalk" class="frame"></iframe>
-        <iframe title="https://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
+        <iframe title="http://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
         <iframe title="http://www.abuseipdb.com/report-history/%s" id="abuseipdb" class="frame"></iframe>
 
         <!-- RBL -->
@@ -140,10 +140,63 @@
                 return ip_pos_a.length;
             }
 
+            // Go to another frame
+            function page(event) {
+                var prev, next, classes;
+                classes = $(event.target).attr('class');
+
+                if (classes) {
+                    classes = classes.split(/\s+/)
+                } else {
+                    if (event.key === 'ArrowDown') {
+                        classes='arrow-down';
+                    }
+                    if (event.key === 'ArrowUp') {
+                        classes='arrow-up';
+                    }
+                    $('.' + classes).addClass('active');
+                    setTimeout(function () { $('.' + classes).removeClass('active'); }, 100);
+                }
+                prev = $('.tall:eq(0)');
+
+                if (prev.length !== 0) {
+                    prev.removeClass('tall');
+                    if (classes.indexOf('arrow-down') !== -1) {
+                        prev.next('.frame').addClass('tall');
+                    } else if (classes.indexOf('arrow-up') !== -1) {
+                        prev.prev('.frame').addClass('tall');
+                    }
+                } else {
+                    if (classes.indexOf('arrow-down') !== -1) {
+                        $('.frame:eq(0)').addClass('tall');
+                    } else if (classes.indexOf('arrow-up') !== -1) {
+                        $('.frame:last').addClass('tall');
+                    }
+                }
+            };
+
             // On document ready
             $(function () {
                 var ip,
                     query = window.location.search.substring(1);
+
+                // Arrow events
+                $('#control .arrow').click(function (event) {
+                    page(event);
+                });
+                // Up and Down key
+                $(document).keypress(function (event) {
+                    if ( event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                        event.preventDefault();
+                        page(event);
+                    }
+                });
+                // Open frame on mouse hover
+                $('#frames .frame').hover(function () {
+                    $('#frames .frame').removeClass('tall');
+                    $(this).addClass('tall');
+                });
+
                 if (query.split('&').indexOf('prompt') !== -1) {
                     // Manual input
                     ip = prompt('Please enter IP address:');
@@ -196,66 +249,15 @@
                 }
             });
 
-            // Go to another frame
-            function page(event) {
-                var prev, next, classes;
-                classes = $(event.target).attr('class');
-
-                if (classes) {
-                    classes = classes.split(/\s+/)
-                } else {
-                    if (event.key === 'ArrowDown') {
-                        classes='arrow-down';
-                    }
-                    if (event.key === 'ArrowUp') {
-                        classes='arrow-up';
-                    }
-                    $('.' + classes).addClass('active');
-                    setTimeout(function () { $('.' + classes).removeClass('active'); }, 100);
-                }
-                prev = $('.tall:eq(0)');
-
-                if (prev.length !== 0) {
-                    prev.removeClass('tall');
-                    if (classes.indexOf('arrow-down') !== -1) {
-                        prev.next('.frame').addClass('tall');
-                    } else if (classes.indexOf('arrow-up') !== -1) {
-                        prev.prev('.frame').addClass('tall');
-                    }
-                } else {
-                    if (classes.indexOf('arrow-down') !== -1) {
-                        $('.frame:eq(0)').addClass('tall');
-                    } else if (classes.indexOf('arrow-up') !== -1) {
-                        $('.frame:last').addClass('tall');
-                    }
-                }
-            };
-
-            // Arrow events
-            $('#control .arrow').click(function (event) {
-                page(event);
-            });
-            // Up and Down key
-            $(document).keypress(function (event) {
-                if ( event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-                    event.preventDefault();
-                    page(event);
-                }
-            });
-            // Open frame on mouse hover
-            $('#frames .frame').hover(function () {
-                $('#frames .frame').removeClass('tall');
-                $(this).addClass('tall');
-            });
-
         }(jQuery))
-    </script>
-    <script>
+
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         }(window,document,'script','//www.google-analytics.com/analytics.js','ga'));
-        ga('create', 'UA-31696921-7', 'auto'); ga('send', 'pageview');
+
+        ga('create', 'UA-31696921-7', 'auto');
+        ga('send', 'pageview');
     </script>
 
 </body>
