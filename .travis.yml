@@ -1,9 +1,16 @@
+sudo: required
+dist: trusty
+
 language: python
 branches:
   only:
     - gh-pages
 python:
   - "2.7"
+before_install:
+ - sudo apt-get update
+ - sudo apt-get install oracle-java8-installer
+ - sudo update-java-alternatives -s java-8-oracle
 install:
   - "pip install html5validator"
 script:
