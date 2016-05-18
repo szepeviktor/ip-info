@@ -24,21 +24,23 @@ See: https://github.com/szepeviktor/lean-filter/blob/master/build/0200-ip_info.t
 
 ### AbuseIPDB
 
-Info: `http://www.abuseipdb.com/check/%s`
+`http://www.abuseipdb.com/check/%s`
 
-History: `http://www.abuseipdb.com/report-history/%s`
-
-### blocklist.de (opened in new window)
+### blocklist.de (opens in new window)
 
 Info: `https://www.blocklist.de/en/search.html?action=search&send=start+search&ip=%s`
 
 History: `https://www.blocklist.de/en/view.html?ip=%s`
 
-### Stop Forum Spam (opened in new window)
+### Stop Forum Spam (opens in new window)
 
 Info: `http://www.stopforumspam.com/search?q=%s`
 
 List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
+
+### AlienVault Open Threat Exchange (opens in new window)
+
+`https://otx.alienvault.com/indicator/ip/%s/`
 
 ### HE - RBL check, whois, Origin AS, PTR record etc.
 
