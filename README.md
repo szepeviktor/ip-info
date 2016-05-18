@@ -56,6 +56,10 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 
 `http://cinsscore.com/list/ci-badguys.txt`
 
+### Labs
+
+`https://otx.alienvault.com/browse`
+
 ## Used services
 
 - cdnjs by CloudFlare
