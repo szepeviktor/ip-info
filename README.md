@@ -60,7 +60,7 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 
 ### Labs
 
-`https://otx.alienvault.com/browse`
+(no services currently)
 
 ## Used services
 
