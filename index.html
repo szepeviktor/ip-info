@@ -227,21 +227,16 @@
                 // Search lists
                 $('#frames pre.frame[title]').each(function (i, list) {
                     var url = $(list).attr('title'),
-                        allowOrigin = 'http://alloworigin.com/get?url=',
+                        allowOrigin = 'http://allow-any-origin.appspot.com/',
                         content;
-                    /* CORS blocked and sync deprecated
                     content = $.ajax({
-                        url: url,
+                        url: allowOrigin + encodeURIComponent(url),
                         type: 'GET',
                         async: false,
                         dataType: 'html'
                     }).responseText;
-                    $(list).text(content);
-                    */
-                    $.getJSON(allowOrigin + encodeURIComponent(url), function (data) {
-                        $(list).html(data.contents);
-                        selectIP(list, ip);
-                    });
+                    $(list).html(content);
+                    selectIP(list, ip);
                 });
                 // Sites with X-FRAME-OPTIONS header
                 if (popups(ip)) {
