@@ -50,10 +50,6 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 
 `http://mxtoolbox.com/SuperTool.aspx?run=toolpage&action=blacklist%3a%s`
 
-### OpenBL - IP list only
-
-`https://www.openbl.org/lists/base.txt`
-
 ### CINS Score - IP list only
 
 `http://cinsscore.com/list/ci-badguys.txt`
