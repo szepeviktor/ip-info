@@ -1,6 +1,6 @@
 # IP info
 
-[![Build Status](https://travis-ci.org/szepeviktor/ip-info.svg?branch=gh-pages)](https://travis-ci.org/szepeviktor/ip-info)
+[![Build Status](https://travis-ci.com/szepeviktor/ip-info.svg?branch=gh-pages)](https://travis-ci.com/szepeviktor/ip-info)
 
 Examine a host by IP address.
 
