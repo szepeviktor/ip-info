@@ -4,9 +4,9 @@
 
 Examine a host by IP address.
 
-You may add an IPv4 address in the URL query: `http://szepeviktor.github.io/ip-info/?1.2.3.4`
+You may add an IPv4 address in the URL query: `https://szepeviktor.github.io/ip-info/?1.2.3.4`
 
-Have ip-info prompt you for an IP address: `http://szepeviktor.github.io/ip-info/?prompt`
+Have ip-info prompt you for an IP address: `https://szepeviktor.github.io/ip-info/?prompt`
 
 ## Adblock Plus rules
 
@@ -24,7 +24,7 @@ See: https://github.com/szepeviktor/lean-filter/blob/master/build/0200-ip_info.t
 
 ### AbuseIPDB
 
-`http://www.abuseipdb.com/check/%s`
+`https://www.abuseipdb.com/check/%s`
 
 ### blocklist.de (opens in new window)
 
@@ -44,7 +44,7 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 
 ### HE - RBL check, whois, Origin AS, PTR record etc.
 
-`http://bgp.he.net/ip/%s#_rbl`
+`https://bgp.he.net/ip/%s#_rbl`
 
 ### MX Toolbox - RBL check
 
@@ -67,4 +67,4 @@ List: `http://www.stopforumspam.com/downloads/toxic_ip_cidr.txt`
 
 ## HTML5 validity
 
-https://validator.w3.org/nu/?doc=http%3A%2F%2Fszepeviktor.github.io%2Fip-info%2F
+https://validator.w3.org/nu/?doc=https%3A%2F%2Fszepeviktor.github.io%2Fip-info%2F

@@ -10,7 +10,7 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
-    <style type="text/css">
+    <style>
         html { overflow-y: scroll; }
         body { color: #4c4c4c; background: #e3e4e6; }
         pre { margin: 0; }
@@ -41,7 +41,7 @@
 <body>
     <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
-        href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <div id="control">
@@ -58,7 +58,7 @@
         <iframe title="http://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
 
         <!-- RBL -->
-        <iframe title="http://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
+        <iframe title="https://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
         <iframe title="https://mxtoolbox.com/SuperTool.aspx?run=toolpage&amp;action=blacklist%3a%s"
             id="mxtoolbox" class="frame"></iframe>
 
@@ -67,11 +67,11 @@
     </div>
 
     <div id="blanks">
-        <span title="http://www.abuseipdb.com/report-history/%s" id="abuseipdb"></span>
+        <span title="https://www.abuseipdb.com/report-history/%s" id="abuseipdb"></span>
         <span title="https://www.virustotal.com/en/ip-address/%s/information/" id="virustotal"></span>
         <span title="https://otx.alienvault.com/indicator/ip/%s/" id="alienvault"></span>
         <span title="https://www.blocklist.de/en/view.html?ip=%s" id="blocklist.de"></span>
-        <span title="http://www.stopforumspam.com/search?q=%s" id="stopforumspam"></span>
+        <span title="https://www.stopforumspam.com/search?q=%s" id="stopforumspam"></span>
         <span title="https://greensnow.co/view/%s" id="greensnow"></span>
         <span title="https://exchange.xforce.ibmcloud.com/ip/%s" id="ibm-xforce"></span>
         <!--span title="http://whois.domaintools.com/%s" id="domaintools"></span-->
@@ -228,7 +228,7 @@
                 // Search lists
                 $('#frames pre.frame[title]').each(function (i, list) {
                     var url = $(list).attr('title'),
-                        allowOrigin = 'http://allow-any-origin.appspot.com/',
+                        allowOrigin = 'https://allow-any-origin.appspot.com/',
                         content;
                     content = $.ajax({
                         url: allowOrigin + encodeURIComponent(url),
