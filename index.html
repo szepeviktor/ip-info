@@ -54,8 +54,7 @@
     <div id="frames">
         <!-- Abuse -->
         <iframe title="https://access.watch/database/addresses/%s" id="accesswatch" class="frame"></iframe>
-        <iframe title="https://cleantalk.org/blacklists?record=%s" id="cleantalk" class="frame"></iframe>
-        <iframe title="http://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
+        <iframe title="https://www.projecthoneypot.org/ip_%s" id="projecthoneypot" class="frame"></iframe>
 
         <!-- RBL -->
         <iframe title="https://bgp.he.net/ip/%s#_rbl" id="he" class="frame"></iframe>
@@ -67,6 +66,7 @@
     </div>
 
     <div id="blanks">
+        <span title="https://cleantalk.org/blacklists/%s" id="cleantalk"></span>
         <span title="https://www.abuseipdb.com/report-history/%s" id="abuseipdb"></span>
         <span title="https://www.virustotal.com/en/ip-address/%s/information/" id="virustotal"></span>
         <span title="https://otx.alienvault.com/indicator/ip/%s/" id="alienvault"></span>
@@ -77,7 +77,7 @@
         <!--span title="http://whois.domaintools.com/%s" id="domaintools"></span-->
     </div>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
     <script>
         (function ($) {
 
